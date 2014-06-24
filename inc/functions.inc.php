@@ -54,7 +54,7 @@ function generateDropdownFromTable($formid,$table, $valuefield, $textfield, $dro
         ON ".$joinTable.".".$joinField."=".$table.".".$valuefield."
         GROUP BY ".$table.".".$valuefield;
     }
-    echo $sql;
+    
     $result = $mysqli->query($sql);
     while($row = $result->fetch_assoc())
     {
