@@ -1,4 +1,4 @@
-<?php
+s<?php
 if(!isset($_POST['submit']))
 {    
     echo '<form "action="index.php?action=# METHOD="POST">
@@ -24,18 +24,22 @@ else
     if(!isset($_POST['gebruikerscode'])&&($_POST['wachtwoord'])&&($_POST['voornaam'])&&($_POST['achternaam'])&&($_POST['email']))
     {
         echo "De velden zijn niet volledig ingevuld";
+        echo "De velden zijn met de volgende informatie gevuld.'<br>'";
         echo "<input type='button' value='Terug naar vorige pagina' onClick='javascript:history.go(-1)' />";
     }
     else 
     {
         $sql =  mysqli_query ("INSERT INTO `cms_gebruikers`(gebruikercode,wachtwoord,voornaam,achternaam,gebruikerslevel,email)
                         VALUES('$gebruikercode', '$wachtwoord', '$voornaam', '$achternaam', $gebruikerslevel, '$email');");
+        
         $gebruikerslevel = 0;
-
-        foreach ($_POST as $key => $value)
-        {
-            echo $key."<br>";
-        }
+        $wachtwoord = $_POST['wachtwoord'];
+        $voornaam = strip_tags($_POST['voornaam']);
+        $achternaam = strip_tags($_POST['achternaam']);
+        $email = $_POST['email'];
+        
+        $gebruikercode = substr("$achternaam",0,2) + substr($voornaam,0,1);
+        
     }
 }
 
