@@ -1,0 +1,164 @@
+body{
+	margin:0px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+/*
+div{
+	border:thin black solid;
+}
+
+div:hover{
+	border:thin red solid;
+}
+*/
+h1.headertitle{
+	font-size:36px;	
+	margin:15px;
+}
+
+.filteroptions{
+    background-color: #aaa;
+    background-image:url(img/backgroundimage.png);
+    padding:4px;
+}
+
+.pageselector{
+    display: none;
+}
+
+th{
+    text-align: left;
+}
+
+div.menu-item{
+	font-size:20px;	
+	margin:15px;
+	background-color:#eee;
+	background-image:url(img/backgroundimage.png);
+	border: thin black solid;
+	border-radius:15px;
+	height:30px;
+	width:190px;
+	text-align:center;
+	text-decoration:none;
+	vertical-align:middle;
+	box-shadow:	3px 3px 3px 0px #000;
+}
+
+div.menu-item:hover, div.menu-item:active{
+	background-color:#ccc;
+	box-shadow:	4px 6px 3px 0px #000;
+}
+
+#page-wrapper{
+	overflow:hidden;
+	width:854px;	
+	margin-left: auto;
+    margin-right: auto;
+	padding-top:15px;
+}
+
+#header-container{
+	vertical-align:top;
+	padding:15px;
+	border-radius:15px;
+	background-color:#eef;
+	background-image:url(img/backgroundimage.png);
+	border: thin black solid;
+}
+
+.ci-table{
+    width:100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.ci-table-row{
+    cursor: pointer;
+    border-top: thin black solid;
+}
+
+.ci-table-row.uneven{
+    background-color: #ccd;
+    background-image: url(img/backgroundimage.png);
+}
+
+.ci-table-row.even{
+    background-color: #eef;
+    background-image: url(img/backgroundimage.png);
+}
+
+.ci-table-row.uneven:hover{
+    background-color: #bbc;
+}
+
+.ci-table-row.even:hover{
+    background-color: #dde;
+}
+
+.ci-table-cell{
+
+}
+
+.headertitle{
+	display:inline-block;
+}
+
+.logo{
+	height:100px;
+	margin-left:15px;
+	margin-top:15px;
+}
+
+.headerlogin{
+    float: right;
+    display: inline-block;
+}
+
+#userfield{
+  text-transform: uppercase;
+}
+
+#menu-container{
+	width:250px;
+	overflow:hidden;
+	float:left;
+	border-radius:15px;
+	background-color:#eef;
+	background-image:url(img/backgroundimage.png);
+	border: thin black solid;
+	margin-top:15px;
+}
+
+#content-wrapper{
+	width:585px;
+	overflow:hidden;
+	float:left;
+	border-radius:15px;
+	background-color:#eef;
+	background-image:url(img/backgroundimage.png);
+	border: thin black solid;
+	margin-top:15px;
+	margin-left:15px;
+}
+
+.clearfix{
+	margin:15px;	
+}
+
+a:link, a:visited, a:hover, a:active {  
+	color:#333;
+	text-decoration:none;
+}
+
+.hardwareitemtable{
+    width:100%;
+}
+
+.hardwareitemtable-row{
+    
+}
+
+.hardwareitemtable-cell{
+    width:50%;
+}
