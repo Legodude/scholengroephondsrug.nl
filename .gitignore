@@ -36,3 +36,4 @@ Icon
 .Trashes
 
 *.xml
+inc/database.inc.php
