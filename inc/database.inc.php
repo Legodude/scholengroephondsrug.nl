@@ -2,7 +2,7 @@
 
     $hostname="beheer.scholengroephondsrug.nl";
     $username="root";
-    $password="1biertje";
+    $password="";
     $database="cmdb";
         $port="6612";
 

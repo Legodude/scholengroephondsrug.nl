@@ -38,7 +38,8 @@ else
         $achternaam = strip_tags($_POST['achternaam']);
         $email = $_POST['email'];
         
-         $gebruikercode = strtoupper(substr($achternaam ,0,3).substr($voornaam,0,2));
+        $gebruikercode = strtoupper(substr($achternaam ,0,3).substr($voornaam,0,2));
+        
         
     }
 }
