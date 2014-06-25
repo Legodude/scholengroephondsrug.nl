@@ -11,11 +11,11 @@ $result = $mysqli->query($sql);
 <?php
 while($row=$result->fetch_assoc()){
     print("<tr>
-        <td>$row['gebruikercode']</td>
-        <td>$row['voornaam']</td>
-        <td>$row['achternaam']</td>
-        <td>$row['gebruikerslevel']</td>
-        <td>$row['email']</td>
+        <td>$row[gebruikercode]</td>
+        <td>$row[voornaam]</td>
+        <td>$row[achternaam]</td>
+        <td>$row[gebruikerslevel]</td>
+        <td>$row[email]</td>
        </tr>");
 }
     
