@@ -1,7 +1,16 @@
 <?php
+
 include 'inc/database.inc.php';
 include 'inc/definitions.inc.php';
 include 'inc/functions.inc.php';
+if(isset($_GET['partial']))
+{
+    if($_GET['partial']==1)
+    {
+        include 'pages/'.$_GET['action'];
+        exit();
+    }
+}
 if(isset($_GET["action"]))
 {
     $action=$mysqli->real_escape_string(strip_tags($_GET["action"]));
