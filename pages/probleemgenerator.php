@@ -47,16 +47,16 @@ $result=$mysqli->query($query);
 <?php
 while($row= $result->fetch_assoc()){
     print("<tr>
-        <td>$row['Incident_ID']</td>
-        <td>$row['IncidentHardware']</td>
-        <td>$row['TypeOmschrijving']</td>
-        <td>$row['locatieOmschrijving']</td>
-        <td>$row['OntwikkelaarNaam']</td>
-        <td>$row['leverancierNaam']</td>
-        <td>$row['HardwareAankoopJaar']</td>
-        <td>$row['IncidentOmschrijving']</td>
-        <td>$row['IncidentWorkaround']</td>
-        <td><input type='checkbox' name='incidents[]' value='$row[`Incident_ID`]'
+        <td>$row[Incident_ID]</td>
+        <td>$row[IncidentHardware]</td>
+        <td>$row[TypeOmschrijving]</td>
+        <td>$row[locatieOmschrijving]</td>
+        <td>$row[OntwikkelaarNaam]</td>
+        <td>$row[leverancierNaam]</td>
+        <td>$row[HardwareAankoopJaar]</td>
+        <td>$row[IncidentOmschrijving]</td>
+        <td>$row[IncidentWorkaround]</td>
+        <td><input type='checkbox' name='incidents[]' value='$row[Incident_ID]'
        </tr>");
         
 }
@@ -95,4 +95,5 @@ else{
     }
     
 }
+?>
 </html>
