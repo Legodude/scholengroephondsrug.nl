@@ -9,14 +9,18 @@ $result = $mysqli->query($sql);
     <tr><th>gebruikercode</th><th>voornaam</th><th>achternaam</th><th>gebruikerslevel</th><th>e-mail</th></tr>
     
 <?php
+$i=0;
 while($row=$result->fetch_assoc()){
-    print("<tr>
-        <td>$row[gebruikercode]</td>
-        <td>$row[voornaam]</td>
-        <td>$row[achternaam]</td>
-        <td>$row[gebruikerslevel]</td>
-        <td>$row[email]</td>
-       </tr>");
+    echo '<tr onclick="window.document.location.href=\'?action=userlist&gebruikercode='.$row["gebruikercode"].'\'" class="ci-table-row ';
+        if($i%2) echo "even";
+        else echo "uneven";
+        echo '">';
+        foreach($row as $field)
+        {
+            echo '<td class="ci-table-cell">'.$field."</td>";
+        }
+        echo "</tr>";
+        $i++;
 }
     
 

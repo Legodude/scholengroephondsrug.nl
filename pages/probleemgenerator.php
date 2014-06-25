@@ -69,7 +69,7 @@ while($row= $result->fetch_assoc()){
     <?php
 }
 else{
-    $incidents[] = $_POST['incidents[]'];
+    $incidents = $_POST['incidents[]'];
     $omschrijving = $_POST['Omschrijving'];
     $workaround = $_POST['Workaround'];
     $opgelost = $_POST['Opgelost'];
@@ -88,7 +88,7 @@ else{
             FROM im_problemen";
     $result=$mysqli->query($query);
     
-    foreach($incidents[] as $value){
+    foreach($incidents as $value){
         $query="INSERT INTO im_incidentprobleemlink(Incident_ID, Probleem_ID)
                 VALUES $value, $result";
         $mysqli->query($query);
