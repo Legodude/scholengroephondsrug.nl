@@ -28,4 +28,5 @@
                         VALUES('$gebruikercode', '$wachtwoord', '$voornaam', '$achternaam', '$email')";
         $result =  $mysqli->query($sql);
     }
+
 ?>
