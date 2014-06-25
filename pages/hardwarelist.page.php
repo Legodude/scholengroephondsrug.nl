@@ -108,7 +108,9 @@ if($result->num_rows!=0)
     $i=0;
     while ($row = $result->fetch_assoc())
     {
-        echo '<tr onclick="window.document.location.href=\'?action=hardwareitem&hardwareID='.$row["Hardware_ID"].'\'" class="ci-table-row ';
+        $nextaction = 'hardwareitem';
+        if(isset($_GET['nextaction'])) $nextaction = $_GET['nextaction'];
+        echo '<tr onclick="window.document.location.href=\'?action='.$nextaction.'&hardwareID='.$row["Hardware_ID"].'\'" class="ci-table-row ';
         if($i%2) echo "even";
         else echo "uneven";
         echo '">';
