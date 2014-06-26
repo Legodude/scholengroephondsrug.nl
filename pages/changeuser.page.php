@@ -1,62 +1,60 @@
 <?php
 
 $gebruikercode = $_GET["gebruikercode"];
-echo $gebruikercode."<br>";
 
 $sql = 'SELECT * 
 FROM `cms_gebruikers`
 WHERE `gebruikercode` = "'.$gebruikercode.'"';
 
-$user = $mysqli->query($sql);
+$result = $mysqli->query($sql);
 $userinfo = array();
 
 if($result->num_rows==1)
 {
     $userinfo = $result->fetch_assoc(); 
-
-
-switch ($acountlevel)
+    $gebruikerslevel = $userinfo['gebruikerslevel'];
+    
+switch ($gebruikerslevel)
 {
     case 0:
-        $acountlevelnaam = "EVERYONE";
+        $gebruikerslevelnaam = "EVERYONE";
         break;
     case 1:
-        $acountlevelnaam = "INCIDENTBEHEER";
+        $gebruikerslevelnaam = "INCIDENTBEHEER";
         break;
     case 2:
-        $acountlevelnaam = "PROBLEEMBEHEER";
+        $gebruikerslevelnaam = "PROBLEEMBEHEER";
         break;
     case 3:
-        $acountlevelnaam = "WIJZIGINGSBEHEER";
+        $gebruikerslevelnaam = "WIJZIGINGSBEHEER";
         break;
     case 4:
-        $acountlevelnaam = "CONFIGURATIBEHEER";
+        $gebruikerslevelnaam = "CONFIGURATIBEHEER";
         break;
     case 5:
-        $acountlevelnaam = "ADMIN";
+        $gebruikerslevelnaam = "ADMIN";
         break;
     default :
-        $acountlevelnaam = "EVERYONE";            
+        $gebruikerslevelnaam = "EVERYONE";            
 }
-
 ?>
 <form action="#" METHOD="POST">
     <table>
         <tr>
-            <td>Voornaam:</td><td><input autocomplete="off" type="text" name="voornaam" value="<?php echo $voornaam['voornaam']; ?>" /></td>
+            <td>Voornaam:</td><td><input autocomplete="off" type="text" name="voornaam" value="<?php echo $userinfo['voornaam']; ?>" /></td>
         </tr>
         <tr>
-            <td>Achternaam:</td><td><input autocomplete="off" type="text" name="achternaam" value="<?php echo $achternaam['achternaam']; ?>" /></td>
+            <td>Achternaam:</td><td><input autocomplete="off" type="text" name="achternaam" value="<?php echo $userinfo['achternaam']; ?>" /></td>
         </tr>
         <tr>
-            <td>E-mail:</td><td><input autocomplete="off" type="text" name="email" value="<?php echo $email['email']; ?>" /></td>
+            <td>E-mail:</td><td><input autocomplete="off" type="text" name="email" value="<?php echo $userinfo['email']; ?>" /></td>
         </tr>
         <tr>
-            <td>Wachtwoord:</td><td><input autocomplete="off" type="text" name="wachtwoord" value="<?php echo $wachtwoord['wachtwoord']; ?>"/></td>
+            <td>Wachtwoord:</td><td><input autocomplete="off" type="text" name="wachtwoord" value="<?php echo $userinfo['wachtwoord']; ?>"/></td>
         </tr>
         <tr>
             <td>Acountlevel:</td><td><select name="acountlevel">
-                    <option value="<?php echo $acountlevel['gebruikerslevel'];?>">Rechten nu: <?php echo$acountlevelnaam;?></option>
+                    <option value="<?php echo $userinfo['gebruikerslevel'];?>">Rechten nu: <?php echo$gebruikerslevelnaam;?></option>
                     <option value="0">EVERYONE</option>
                     <option value="1">INCIDENTBEHEER</option>
                     <option value="2">PROBLEEMBEHEER</option>
@@ -68,7 +66,7 @@ switch ($acountlevel)
         </tr>
     </table>
     <input type="submit" value="Aanpassen" />
-    <input type="hidden" name="gebruikerscode" value="<?php echo $gebruikerscode;?>">
+    <input type="hidden" name="gebruikerscode" value="<?php echo $gebruikercode;?>">
 </form>
 <?php
 }
@@ -88,15 +86,10 @@ if(isset($_POST['wachtwoord'])&&isset($_POST['voornaam'])&&isset($_POST['achtern
     $gebruikercode = $_POST['gebruikerscode'];
     
     $sql = 'UPDATE `cms_gebruikers`
-            SET `voornaam` = "'.$voornaam.', `achternaam` = "'.$achternaam.'", `email`="'.$email.'" `wachtwoord` = "'.$wachtwoord.'", `gebruikreslevel` = "'.$acountlevel.'"
-            WHERE gebruikerscode = "'.$gebruikerscode.'"';
+            SET `voornaam` = "'.$voornaam.'", `achternaam` = "'.$achternaam.'", `email`="'.$email.'", `wachtwoord` = "'.$wachtwoord.'", `gebruikerslevel` = '.$acountlevel.'
+            WHERE gebruikercode = "'.$gebruikercode.'"';
     
     $result =  $mysqli->query($sql);
-    
-    foreach ($_POST as $key => $value) {
-
-        echo $value."<br>";
-        
-    }
+    header("Location: ?action=userlist");
 }
 ?>
