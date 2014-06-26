@@ -58,7 +58,7 @@ else{
             WHERE IncidentCall_ID=$ID
             ";
     $mysqli->query($query);
-    
+    echo "Call is gesloten.";
 }
 ?>
 
