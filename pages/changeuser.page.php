@@ -2,7 +2,6 @@
 
 $gebruikercode = $_GET["gebruikercode"];
 
-
 $sql = 'SELECT * 
 FROM `cms_gebruikers`
 WHERE `gebruikercode` = "'.$gebruikercode.'"';
@@ -38,7 +37,6 @@ switch ($gebruikerslevel)
     default :
         $gebruikerslevelnaam = "EVERYONE";            
 }
-
 ?>
 <form action="#" METHOD="POST">
     <table>
@@ -92,11 +90,6 @@ if(isset($_POST['wachtwoord'])&&isset($_POST['voornaam'])&&isset($_POST['achtern
             WHERE gebruikercode = "'.$gebruikercode.'"';
     
     $result =  $mysqli->query($sql);
-    echo $sql."<br>";
-    
-    foreach ($_POST as $key => $value) {
-
-    echo "<br>".$value."<br>";
-    }
+    header("Location: ?action=userlist");
 }
 ?>
