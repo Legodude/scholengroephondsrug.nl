@@ -41,4 +41,5 @@ else{
     $query="INSERT INTO im_incidentcalls (Callopening, Incident_ID, CallStatus)
         VALUES ('$opening', $ID, 0)";
     $mysqli->query($query);
+    echo "Call is aangemaakt.";
 } 

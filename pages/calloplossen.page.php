@@ -59,7 +59,11 @@ else{
             WHERE IncidentCall_ID=$ID
             ";
     $mysqli->query($query);
+<<<<<<< HEAD
     echo "Call gesloten!";
+=======
+    echo "Call is gesloten.";
+>>>>>>> origin/master
 }
 ?>
 
