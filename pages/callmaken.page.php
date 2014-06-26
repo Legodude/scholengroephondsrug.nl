@@ -4,22 +4,22 @@ if(!isset($_POST['Opening']) AND !isset($_POST['incident'])){
 ?>
 
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="#">
     <table>
         
-        <tr><td>Openingstijd:</td><td>
+        <tr><td>starttijd:</td><td>
     <input type="datetime-local" name="Opening">
             </td>
         </tr>
         <tr>
             <td>Incident:</td><td>
-    <select name="incident">
+    <select name="incident" style="width: 235px;">
         <?php
-        $query="SELECT Incident_ID FROM im_incidenten WHERE im_incidenten.incidentOplossing IS NULL";
+        $query="SELECT Incident_ID, Incidentomschrijving FROM im_incidenten WHERE im_incidenten.incidentOplossing IS NULL";
         $result=$mysqli->query($query);
         While($row=$result->fetch_assoc()){
-            echo '<option name="incident">';
-            echo $row['Incident_ID'];
+            echo '<option value="'.$row['Incident_ID'].'">';
+            echo $row['Incident_ID'].': '.$row['Incidentomschrijving'];
             echo '</option>';
         }
             

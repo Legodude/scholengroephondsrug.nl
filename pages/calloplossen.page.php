@@ -4,11 +4,12 @@
 
 
 
-if(!isset($_POST['ID']) AND !isset($_POST['sluiting']) AND !isset($_POST['oplossing'])){
-$query="SELECT IncidentCall_ID FROM im_incidentcalls WHERE CallSluiting IS NULL";
+if(!isset($_POST['ID']) && !isset($_POST['sluiting']) && !isset($_POST['oplossing'])){
+$query="SELECT IncidentCall_ID, IncidentOmschrijving FROM im_incidentcalls a, im_incidenten b WHERE CallSluiting IS NULL and a.Incident_ID = b.Incident_ID";
 $result=$mysqli->query($query);
+if($result->num_rows==0) echo "geen calls!", exit();
 ?>
-<form method='post' action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method='post' action="#">
     <table>
         <tr>
             <td>CallID:</td>
@@ -16,8 +17,8 @@ $result=$mysqli->query($query);
                 <select name='ID'>
                 <?php
                     While($row=$result->fetch_assoc()){
-                        echo '<option>';
-                        echo $row['IncidentCall_ID'];
+                        echo '<option value="'.$row['IncidentCall_ID'].'">';
+                        echo $row['IncidentCall_ID'].':'.$row['IncidentOmschrijving'];
                         echo '</option>';
                     }
                 ?>
@@ -58,7 +59,7 @@ else{
             WHERE IncidentCall_ID=$ID
             ";
     $mysqli->query($query);
-    
+    echo "Call gesloten!";
 }
 ?>
 
