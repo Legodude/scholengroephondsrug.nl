@@ -11,7 +11,7 @@ $result = $mysqli->query($sql);
 <?php
 $i=0;
 while($row=$result->fetch_assoc()){
-    echo '<tr onclick="window.document.location.href=\'?action=userlist&gebruikercode='.$row["gebruikercode"].'\'" class="ci-table-row ';
+    echo '<tr onclick="window.document.location.href=\'?action=wijziguser&gebruikercode='.$row["gebruikercode"].'\'" class="ci-table-row ';
         if($i%2) echo "even";
         else echo "uneven";
         echo '">';

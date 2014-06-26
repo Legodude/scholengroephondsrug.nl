@@ -1,6 +1,7 @@
 <?php
 
-$gebruikercode = $_POST['gebruikercode'];
+$gebruikercode = $_GET["gebruikercode"];
+echo $gebruikercode."<br>";
 
 $sql = 'SELECT * 
 FROM `cms_gebruikers`
@@ -73,7 +74,7 @@ switch ($acountlevel)
 }
 else
 {
-    echo "geen gebruiker informatie gevonden";
+    echo "Geen gebruikers informatie gevonden";
 }
 
 if(isset($_POST['wachtwoord'])&&isset($_POST['voornaam'])&&isset($_POST['achternaam'])&&isset($_POST['email']))
