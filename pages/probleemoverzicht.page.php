@@ -3,7 +3,7 @@
 $query="SELECT Probleem_ID, Probleem_Omschrijving, Probleem_Workaround, Probleem_Opgelost
         FROM im_problemen";
 $result=$mysqli->query($query);
-echo "<table><tr><th>ID</th><th>Omschrijving</th><th>Workaround</th><th>Opgelost</th><th>Fout</th></tr>";
+echo "<table><tr><th>ID</th><th>Omschrijving</th><th>Workaround</th><th>Opgelost</th></tr>";
 $i=0;
 if($result->num_rows!=0)
 {

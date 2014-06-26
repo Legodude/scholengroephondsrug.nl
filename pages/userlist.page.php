@@ -1,4 +1,8 @@
-
+<style>
+    td, th{
+        font-size:11px;
+    }
+</style>
 <?php
  $sql = "SELECT gebruikercode, voornaam, achternaam, gebruikerslevel, email
          FROM cms_gebruikers";

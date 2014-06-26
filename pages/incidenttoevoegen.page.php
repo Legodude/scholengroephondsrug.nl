@@ -29,7 +29,7 @@ if(isset($_POST['Hardware_ID']))
 
 if(!isset($_GET['hardwareID']))
 {
-    header("Location: /scholengroephondsrug.nl/?action=incidenthardwarelist&nextaction=incidentaanmaken");
+    header("Location: ?action=incidenthardwarelist&nextaction=incidentaanmaken");
 }
 else
 {

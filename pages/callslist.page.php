@@ -45,10 +45,7 @@ if($result->num_rows>0)
         echo '>niet in behandeling</option>';
         echo '<option value="1"';
         if($row['CallStatus']=='1') echo ' selected="selected"';
-        echo '>in behandeling</option>';
-        echo '<option value="2"';
-        if($row['CallStatus']=='2') echo ' selected="selected"';
-        echo '>afgerond</option>';
+        echo '>opgelost</option>';
         echo '</form>';
         echo '</td>';
         echo '</tr>';

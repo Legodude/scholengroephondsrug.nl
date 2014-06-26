@@ -60,7 +60,6 @@ else{
             ";
     $mysqli->query($query);
     echo "Call gesloten!";
-    echo "Call is gesloten.";
 }
 ?>
 
