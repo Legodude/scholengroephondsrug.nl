@@ -59,7 +59,17 @@ else{
             WHERE IncidentCall_ID=$ID
             ";
     $mysqli->query($query);
-    echo "Call gesloten!";
+    
+    $query="SELECT email, IncidentOmschrijving
+            FROM im_incidenten
+            INNER JOIN im_incidentcalls
+            ON im_incidentcalls.Incident_ID=im_incidenten.Incident_ID
+            WHERE IncidentCall_ID=$ID";
+    $result=$mysqli->query($query);
+    $row=$result->fetch_assoc();
+    echo "Incident omschrijving: ".$row['IncidentOmschrijving']."<br />";
+    echo "Incidentmelder: ".$row['email']."<br />";
+    echo "Call gesloten! <br />";
 }
 ?>
 
