@@ -17,12 +17,12 @@ else
     <form action="#" method="POST" >
         <table>
             <!--<tr><td>Computer code:</td><td><select name="hardwareid" id="Hardware_ID"></td>-->
-            <tr><td>Computer code:</td><td><?php echo "<select name='hardwareid'></td>";
+            <tr><td>Computer code:</td><td><?php echo "<select name='hardwareid'>";
                 while ($temp = $result->fetch_assoc())
                 {
                     echo "<option value='".$temp['Hardware_ID']."</option>";
                 }
-                echo "</select>";
+                echo "</select></td>";
                 ?>
         </table>
         <?php
