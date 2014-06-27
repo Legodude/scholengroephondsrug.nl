@@ -41,6 +41,9 @@ switch ($gebruikerslevel)
 <form action="#" METHOD="POST">
     <table>
         <tr>
+            <td>Gebruikersnaam:</td><td><?php echo $userinfo['gebruikercode']?></td>
+        </tr>
+        <tr>
             <td>Voornaam:</td><td><input autocomplete="off" type="text" name="voornaam" value="<?php echo $userinfo['voornaam']; ?>" /></td>
         </tr>
         <tr>
