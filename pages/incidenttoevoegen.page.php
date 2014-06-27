@@ -16,14 +16,15 @@ if(isset($_POST['Hardware_ID']))
             VALUES
             ("'.$_POST['Hardware_ID'].'",
             "'.$_POST['incidentAanvangdatum'].' '.$_POST['incidentAanvangtijd'].'",
-            "'.$_POST['incidentOmschrijving'].'",
+            "'.$_POST['omschrijving'].'",
             "'.$_POST['incidentWorkaround'].'",
             "'.$_POST['incidentImpact'].'",
             "'.$_POST['incidentUrgentie'].'",
             "'.$_POST['gebruikercode'].'",
             "'.$_POST['incidentStatus'].'")';
-    echo "Incident aangemaakt!";
-    
+    $result =  $mysqli->query($sql);
+    echo "Incident aangemaakt!<br>";
+    echo $sql;
     exit();
 }
 
