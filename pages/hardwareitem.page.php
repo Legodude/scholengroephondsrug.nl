@@ -8,18 +8,29 @@
 
 $hardwareid = $mysqli->real_escape_string(strip_tags($_GET["hardwareID"]));
 
-if(isset($_POST['HardwareType_ID'])&&isset($_POST['HardwareLocatie_ID'])&&isset($_POST['HardwareOS_ID'])&&isset($_POST['HardwareOntwikkelaar_ID'])&&isset($_POST['HardwareLeverancier_ID'])&&isset($_POST['HardwareAankoopJaar']))
+if(isset($_POST['Hardware_ID']))
 {
-    $sql = 'UPDATE `cmdb_hardware` SET ';
-    foreach($_POST as $key=>$value)
-    {
-        if(empty($value)) $sql.= '`'.$key.'`=NULL';
-        else $sql.= '`'.$key.'`="'.$value.'"';
-        if($key!="HardwareAankoopJaar") $sql.=', ';
-        else $sql.=' ';
-    }
-    $sql .= 'WHERE `Hardware_ID` = "'.$hardwareid.'"';
+    $sql = 'UPDATE `cmdb_hardware` SET `HardwareOS_ID` = '.$_POST['HardwareOS_ID'].' WHERE `Hardware_ID` = "'.$hardwareid.'"';
     $mysqli->query($sql);
+    
+    foreach($_POST['Software_ID'] as $key=>$value)
+    {
+        $sql = "";
+        if(empty($value))
+        {
+            $sql .= 'DELETE FROM `cmdb_geinstalleerdesoftware` WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
+        }
+        else 
+        {
+            $sql .= 'UPDATE `cmdb_geinstalleerdesoftware` SET `Software_ID` = "'.$value.'" WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
+        }
+        $mysqli->query($sql);
+    }
+    if(!empty($_POST['SoftwareNieuw']))
+    {
+        $sql = 'INSERT INTO `cmdb_geinstalleerdesoftware` (`Software_ID`,`Hardware_ID`) VALUES ("'.$_POST['SoftwareNieuw'].'","'.$_POST['Hardware_ID'].'")';
+        $mysqli->query($sql);
+    }
 }
 
 $sql = 'SELECT 
@@ -50,7 +61,8 @@ if($result->num_rows==1)
             HardwareID:
         </td>
         <td class="hardwareitemtable-cell">
-            <input name="Hardware_ID" type="text" value="<?php echo $hardwareinfo['Hardware_ID'] ?>" disabled="disabled" />
+            <input name="Hardware_ID" type="hidden" value="<?php echo $hardwareinfo['Hardware_ID'] ?>" />
+            <?php echo $hardwareinfo['Hardware_ID'] ?>
         </td>
     </tr>
     <tr class="hardwareitemtable-row">
@@ -59,7 +71,7 @@ if($result->num_rows==1)
         </td>
         <td class="hardwareitemtable-cell">
             <?php
-                generateDropdownFromTable("","cmdb_type", "Type_ID", "TypeOmschrijving", "HardwareType_ID","Geen",$hardwareinfo['HardwareType_ID'],"cmdb_hardware","hardwareType_ID");
+               echo $hardwareinfo['HardwareType_ID'];
             ?>
         </td>
     </tr>
@@ -69,17 +81,7 @@ if($result->num_rows==1)
         </td>
         <td class="hardwareitemtable-cell">
             <?php
-                generateDropdownFromTable("","cmdb_locatie", "Locatie_ID", "LocatieOmschrijving", "HardwareLocatie_ID","Geen",$hardwareinfo['HardwareLocatie_ID']);
-            ?>
-        </td>
-    </tr>
-    <tr class="hardwareitemtable-row">
-        <td class="hardwareitemtable-cell">
-            Operating System:
-        </td>
-        <td class="hardwareitemtable-cell">
-            <?php
-                generateDropdownFromTable("","cmdb_software", "Software_ID", "SoftwareNaam", "HardwareOS_ID","Geen",$hardwareinfo['HardwareOS_ID'],"cmdb_hardware","hardwareOS_ID");
+                echo $hardwareinfo['HardwareLocatie_ID'];
             ?>
         </td>
     </tr>
@@ -89,7 +91,7 @@ if($result->num_rows==1)
         </td>
         <td class="hardwareitemtable-cell">
             <?php
-                generateDropdownFromTable("","cmdb_ontwikkelaar", "Ontwikkelaar_ID", "OntwikkelaarNaam", "HardwareOntwikkelaar_ID","Geen",$hardwareinfo['HardwareOntwikkelaar_ID'],"cmdb_hardware","hardwareOntwikkelaar_ID");
+                echo $hardwareinfo['HardwareOntwikkelaar_ID'];
             ?>
         </td>
     </tr>
@@ -99,7 +101,7 @@ if($result->num_rows==1)
         </td>
         <td class="hardwareitemtable-cell">
             <?php
-                generateDropdownFromTable("","cmdb_leverancier", "Leverancier_ID", "LeverancierNaam", "HardwareLeverancier_ID","Geen",$hardwareinfo['HardwareLeverancier_ID'],"cmdb_hardware","hardwareLeverancier_ID");
+                echo $hardwareinfo['HardwareLeverancier_ID'];
             ?>
         </td>
     </tr>
@@ -108,7 +110,17 @@ if($result->num_rows==1)
             Aankoopjaar:
         </td>
         <td class="hardwareitemtable-cell">
-            <?php echo '<input name="HardwareAankoopJaar" type="number" maxlength="4" value="'.$hardwareinfo['HardwareAankoopJaar'].'"/>';?>
+            <?php echo $hardwareinfo['HardwareAankoopJaar'];?>
+        </td>
+    </tr>
+    <tr class="hardwareitemtable-row">
+        <td class="hardwareitemtable-cell">
+            Operating System:
+        </td>
+        <td class="hardwareitemtable-cell">
+            <?php
+                generateDropdownFromTable("","cmdb_software", "Software_ID", "SoftwareNaam", "HardwareOS_ID","Geen",$hardwareinfo['HardwareOS_ID'],"cmdb_hardware","hardwareOS_ID",200);
+            ?>
         </td>
     </tr>
     <tr>
@@ -130,16 +142,18 @@ if($result->num_rows==1)
                 {
                     while($row = $result->fetch_assoc())
                     {
-                        //generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "Software_ID", "(geen)", $row["Software_ID"], "cmdb_geinstalleerdesoftware", "Software_ID",200);
-                        echo $row["SoftwareNaam"];
-                        echo '<br />';
+                        generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "Software_ID[".$row['GeinstalleerdeSoftware_ID']."]", "(verwijderen)", $row["Software_ID"], "cmdb_geinstalleerdesoftware", "Software_ID",200);
+                        /*echo $row["SoftwareNaam"];
+                        echo '<br />';*/
+                        
                     }
                 }
+                generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "SoftwareNieuw", "(geen)", "", "cmdb_geinstalleerdesoftware", "Software_ID",200);
             ?>
         </td>
     </tr>
 </table>
-<input type="submit" value="opslaan"/>
+<input type="submit" value="Opslaan"/>
 </form>
 <?php
 }
