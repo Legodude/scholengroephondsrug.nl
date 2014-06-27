@@ -38,8 +38,8 @@ else
     <form action="#" method="POST" >
         <table>
             <tr><td>HardwareID:</td><td><input type="text" readonly="readonly" name="Hardware_ID" <?php echo 'value="'.$_GET['hardwareID'].'"'; ?> /></td></tr>
-            <tr><td>Aanvangdatum:</td><td><input type="date" name="incidentAanvangdatum" /></td></tr>
-            <tr><td>Aanvangtijd:</td><td><input type="text" name="incidentAanvangtijd" /></td></tr>
+            <tr><td>Aanvangdatum:</td><td><input type="date" name="incidentAanvangdatum" value="<?php echo $date= date('dmY')?>" /></td></tr>
+            <tr><td>Aanvangtijd:</td><td><input type="time" name="incidentAanvangtijd" value="<?php echo $time= date('H:i:s')?>" /></td></tr>
             <tr><td>Omschrijving:</td>
                 <td id="omschrijvingcell">
                     <select id="omschrijvingdropdown" name="omschrijving" style="width:155px;">
