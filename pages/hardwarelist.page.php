@@ -56,6 +56,7 @@
                 $sql.='AND `HardwareOntwikkelaar_ID` = "' . $mysqli->real_escape_string(strip_tags($_GET["ontwikkelaar"])) . '"';
             }
         }
+        $sql.= ' AND `HardwareStatus` IS NULL ';
         $result = $mysqli->query($sql);
         $numberrows = $result->num_rows; 
         echo '<div style="float:right; padding-right:15px;">';
@@ -73,7 +74,7 @@
         <label for="previouspage"><</label>
         <input id="previouspage" class="pageselector" type="checkbox" name="skip" value="'.($skip-20).'" onclick="document.getElementById(\'filteroptionsform\').submit();" />';
         }
-        echo " | ".(($skip/20)+1)." |  ";
+        echo " | ".(($skip/20)+1)."/".  ceil($numberrows/20)." |  ";
         if($skip>=$numberrows-20)
         {
             echo '<label for="nextpage">></label>
@@ -100,6 +101,7 @@ if(isset($_GET["skip"]))
     $sql.= ' LIMIT '.$skip .',20';
 }
 else $sql.=' LIMIT 0,20';
+
 $result = $mysqli->query($sql);
 if($result->num_rows!=0)
 {

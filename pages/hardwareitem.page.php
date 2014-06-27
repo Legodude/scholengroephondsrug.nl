@@ -7,9 +7,18 @@
  */
 
 $hardwareid = $mysqli->real_escape_string(strip_tags($_GET["hardwareID"]));
-
+if(isset($_GET['schrijfaf']))
+{
+    $sql = 'UPDATE `cmdb_hardware` SET `HardwareStatus` = 1 WHERE `Hardware_ID` = "'.$hardwareid.'"';
+    $mysqli -> query($sql);
+    echo "Hardwareitem afgeschreven.";
+    exit();
+    
+}
 if(isset($_POST['Hardware_ID']))
 {
+    
+    
     $sql = 'UPDATE `cmdb_hardware` SET `HardwareOS_ID` = '.$_POST['HardwareOS_ID'].' WHERE `Hardware_ID` = "'.$hardwareid.'"';
     $mysqli->query($sql);
     
@@ -155,6 +164,8 @@ if($result->num_rows==1)
 </table>
 <input type="submit" value="Opslaan"/>
 </form>
+<input type="button" id="verwijderen" value="Afschrijven" onclick="document.getElementById('verwijderen').style.display='none';document.getElementById('echtverwijderen').style.display='block';" />
+<input type="button" id="echtverwijderen" style="display:none;" value="Echt afschrijven!" onclick="location.href='?action=hardwareitem&hardwareID=<?php echo $_GET['hardwareID']; ?>&schrijfaf'" />
 <?php
 }
 else echo 'Dit item is niet gevonden in de lijst.<br /> klik <a href="?action=hardware">hier</a> om terug te gaan naar de hardwarelijst';
