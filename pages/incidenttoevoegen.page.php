@@ -24,7 +24,6 @@ if(isset($_POST['Hardware_ID']))
             "'.$_POST['incidentStatus'].'")';
     $result =  $mysqli->query($sql);
     echo "Incident aangemaakt!<br>";
-    echo $sql;
     exit();
 }
 

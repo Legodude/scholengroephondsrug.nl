@@ -1,8 +1,31 @@
 <?php
+if(isset($_GET['hardwareID']))
+{
+    ?>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    <form action="#" method="POST" >
+        <table>
 
+        </table>
+    <?php
+}
+else
+{
+    $sql = 'SELECT `Hardware_ID` FROM `cmdb_hardware`';
+    $result = $mysql->query($sql);
+?>
+    <form action="#" method="POST" >
+        <table>
+            <!--<tr><td>Computer code:</td><td><select name="hardwareid" id="Hardware_ID"></td>-->
+            <tr><td>Computer code:</td><td><?php echo "<select name='hardwareid'></td>";
+                while ($temp = $result->fetch_assoc())
+                {
+                    echo "<option value='".$temp['Hardware_ID']."</option>";
+                }
+                echo "</select>";
+                ?>
+        </table>
+        <?php
+}
+
+?>
