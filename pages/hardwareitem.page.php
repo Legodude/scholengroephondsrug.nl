@@ -148,7 +148,7 @@ if($result->num_rows==1)
                         
                     }
                 }
-                generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "SoftwareNieuw", "(geen)", "", "cmdb_geinstalleerdesoftware", "Software_ID",200);
+                generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "SoftwareNieuw", "Geen", "", "cmdb_geinstalleerdesoftware", "Software_ID",200);
             ?>
         </td>
     </tr>
