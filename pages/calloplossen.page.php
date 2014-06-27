@@ -8,6 +8,9 @@ if(!isset($_POST['ID']) && !isset($_POST['sluiting']) && !isset($_POST['oplossin
 $query="SELECT IncidentCall_ID, IncidentOmschrijving FROM im_incidentcalls a, im_incidenten b WHERE CallSluiting IS NULL and a.Incident_ID = b.Incident_ID";
 $result=$mysqli->query($query);
 if($result->num_rows==0) echo "geen calls!", exit();
+date_default_timezone_set('Europe/Amsterdam');
+$now = date("Y-m-d H:i");
+$now = str_replace(' ', 'T', $now);
 ?>
 <form method='post' action="#">
     <table>
@@ -30,7 +33,7 @@ if($result->num_rows==0) echo "geen calls!", exit();
                 CallSluiting:
             </td>
             <td>
-                <input type="datetime-local" name='sluiting'>
+                <input type="datetime-local" name='sluiting' value=<?php echo $now; ?>>
             </td>
         </tr>
         <tr>

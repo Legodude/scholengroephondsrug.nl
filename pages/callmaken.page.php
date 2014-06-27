@@ -1,6 +1,9 @@
 <?php
 
 if(!isset($_POST['Opening']) AND !isset($_POST['incident'])){
+date_default_timezone_set('Europe/Amsterdam');
+$now = date("Y-m-d H:i");
+$now = str_replace(' ', 'T', $now);
 ?>
 
 
@@ -8,7 +11,7 @@ if(!isset($_POST['Opening']) AND !isset($_POST['incident'])){
     <table>
         
         <tr><td>starttijd:</td><td>
-    <input type="datetime-local" name="Opening">
+    <input type="datetime-local" name="Opening" value=<?php echo $now;?>>
             </td>
         </tr>
         <tr>
