@@ -2,6 +2,26 @@
 
 $gebruikercode = $_GET["gebruikercode"];
 
+if(isset($_POST['wachtwoord'])&&isset($_POST['voornaam'])&&isset($_POST['achternaam'])&&isset($_POST['email']))
+{
+ 
+    $voornaam = $_POST['voornaam'];
+    $achternaam = $_POST['achternaam'];
+    $email = $_POST['email'];
+    $wachtwoord = $_POST['wachtwoord'];
+    $acountlevel = $_POST['acountlevel'];
+    $gebruikercode = $_POST['gebruikerscode'];
+    
+    $sql = 'UPDATE `cms_gebruikers`
+            SET `voornaam` = "'.$voornaam.'", `achternaam` = "'.$achternaam.'", `email`="'.$email.'"';
+    if(!empty($_POST['wachtwoord'])) $sql.=', `wachtwoord` = "'.$wachtwoord.'"';
+    $sql.= ', `gebruikerslevel` = '.$acountlevel.'
+            WHERE gebruikercode = "'.$gebruikercode.'"';
+    
+    $result =  $mysqli->query($sql);
+    header("Location: ?action=userlist");
+}
+
 $sql = 'SELECT * 
 FROM `cms_gebruikers`
 WHERE `gebruikercode` = "'.$gebruikercode.'"';
@@ -16,26 +36,24 @@ if($result->num_rows==1)
     
 switch ($gebruikerslevel)
 {
-    case 0:
-        $gebruikerslevelnaam = "EVERYONE";
-        break;
     case 1:
-        $gebruikerslevelnaam = "INCIDENTBEHEER";
+        $gebruikerslevelnaam = "incidentbeheer";
         break;
     case 2:
-        $gebruikerslevelnaam = "PROBLEEMBEHEER";
+        $gebruikerslevelnaam = "probleembeheer";
         break;
     case 3:
-        $gebruikerslevelnaam = "WIJZIGINGSBEHEER";
+        $gebruikerslevelnaam = "wijzigingsbeheer";
         break;
     case 4:
-        $gebruikerslevelnaam = "CONFIGURATIBEHEER";
+        $gebruikerslevelnaam = "configuratiebeheer";
         break;
     case 5:
-        $gebruikerslevelnaam = "ADMIN";
+        $gebruikerslevelnaam = "beheerder";
         break;
+    case 0:
     default :
-        $gebruikerslevelnaam = "EVERYONE";            
+        $gebruikerslevelnaam = "niet ingelogd";            
 }
 ?>
 <form action="#" METHOD="POST">
@@ -53,17 +71,16 @@ switch ($gebruikerslevel)
             <td>E-mail:</td><td><input autocomplete="off" type="text" name="email" value="<?php echo $userinfo['email']; ?>" /></td>
         </tr>
         <tr>
-            <td>Wachtwoord:</td><td><input autocomplete="off" type="text" name="wachtwoord" value="<?php echo $userinfo['wachtwoord']; ?>"/></td>
+            <td>Wachtwoord wijzigen:</td><td><input autocomplete="off" type="password" name="wachtwoord" /></td>
         </tr>
         <tr>
             <td>Acountlevel:</td><td><select name="acountlevel">
-                    <option value="<?php echo $userinfo['gebruikerslevel'];?>">Rechten nu: <?php echo$gebruikerslevelnaam;?></option>
-                    <option value="0">EVERYONE</option>
-                    <option value="1">INCIDENTBEHEER</option>
-                    <option value="2">PROBLEEMBEHEER</option>
-                    <option value="3">WIJZIGINGSBEHEER</option>
-                    <option value="4">CONFIGURATIBEHEER</option>
-                    <option value="5">ADMIN</option>
+                    <option value="0" <?php if($userinfo['gebruikerslevel']==0) echo 'selected="selected"' ?>>geen rechten</option>
+                    <option value="1" <?php if($userinfo['gebruikerslevel']==1) echo 'selected="selected"' ?>>incidentbeheer</option>
+                    <option value="2" <?php if($userinfo['gebruikerslevel']==2) echo 'selected="selected"' ?>>probleembeheer</option>
+                    <option value="3" <?php if($userinfo['gebruikerslevel']==3) echo 'selected="selected"' ?>>wijzigingsbeheer</option>
+                    <option value="4" <?php if($userinfo['gebruikerslevel']==4) echo 'selected="selected"' ?>>configuratiebeheer</option>
+                    <option value="5" <?php if($userinfo['gebruikerslevel']==5) echo 'selected="selected"' ?>>beheerder</option>
                 </select>
             </td>
         </tr>
@@ -76,23 +93,5 @@ switch ($gebruikerslevel)
 else
 {
     echo "Geen gebruikers informatie gevonden";
-}
-
-if(isset($_POST['wachtwoord'])&&isset($_POST['voornaam'])&&isset($_POST['achternaam'])&&isset($_POST['email']))
-{
- 
-    $voornaam = $_POST['voornaam'];
-    $achternaam = $_POST['achternaam'];
-    $email = $_POST['email'];
-    $wachtwoord = $_POST['wachtwoord'];
-    $acountlevel = $_POST['acountlevel'];
-    $gebruikercode = $_POST['gebruikerscode'];
-    
-    $sql = 'UPDATE `cms_gebruikers`
-            SET `voornaam` = "'.$voornaam.'", `achternaam` = "'.$achternaam.'", `email`="'.$email.'", `wachtwoord` = "'.$wachtwoord.'", `gebruikerslevel` = '.$acountlevel.'
-            WHERE gebruikercode = "'.$gebruikercode.'"';
-    
-    $result =  $mysqli->query($sql);
-    header("Location: ?action=userlist");
 }
 ?>
