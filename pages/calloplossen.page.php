@@ -1,13 +1,10 @@
 <?php
-
-
-
-
-
+if(!isset($_GET['callid']))  header("Location: ?action=calls");
 if(!isset($_POST['ID']) && !isset($_POST['sluiting']) && !isset($_POST['oplossing'])){
 $query="SELECT IncidentCall_ID, IncidentOmschrijving FROM im_incidentcalls a, im_incidenten b WHERE CallSluiting IS NULL and a.Incident_ID = b.Incident_ID";
 $result=$mysqli->query($query);
 if($result->num_rows==0) echo "geen calls!", exit();
+$row = $result->fetch_assoc();
 date_default_timezone_set('Europe/Amsterdam');
 $now = date("Y-m-d H:i");
 $now = str_replace(' ', 'T', $now);
@@ -15,17 +12,29 @@ $now = str_replace(' ', 'T', $now);
 <form method='post' action="#">
     <table>
         <tr>
-            <td>CallID:</td>
+           <td>CallID:</td>
             <td>
-                <select name='ID'>
                 <?php
+                echo $_GET['callid'];
+                ?>
+                <!--<select name='ID'>
+                <?php 
+                /*
                     While($row=$result->fetch_assoc()){
                         echo '<option value="'.$row['IncidentCall_ID'].'">';
                         echo $row['IncidentCall_ID'].':'.$row['IncidentOmschrijving'];
                         echo '</option>';
-                    }
+                    }*/
                 ?>
-                </select>
+                </select>-->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Omschrijving:
+            </td>
+            <td>
+                <?php echo $row['IncidentOmschrijving']; ?>
             </td>
         </tr>
         <tr>
@@ -33,7 +42,7 @@ $now = str_replace(' ', 'T', $now);
                 CallSluiting:
             </td>
             <td>
-                <input type="datetime-local" name='sluiting' value=<?php echo $now; ?>>
+                <input type="datetime-local" name="sluiting" value="<?php echo $now; ?>">
             </td>
         </tr>
         <tr>

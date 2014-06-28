@@ -8,7 +8,7 @@ $i=0;
 if($result->num_rows!=0)
 {
     while($row=$result->fetch_assoc()){
-        echo '<tr  class="ci-table-row ';
+        echo '<tr onclick="location.href=\'?action=probleem&probleemid='.$row['Probleem_ID'].'\'" class="ci-table-row ';
             if($i%2) echo "even";
             else echo "uneven";
             echo '">';

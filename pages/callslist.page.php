@@ -1,13 +1,15 @@
 <?php
+/*
 if(isset($_POST['IncidentCall_ID']))
 {
     $sql = 'UPDATE `im_incidentcalls` SET CallStatus = "'.$_POST['status'].'" WHERE `IncidentCall_ID` = "'.$_POST['IncidentCall_ID'].'"';
+    echo $sql
     $mysqli->query($sql);    
-}
+}*/
 
 $sql = '
     
-SELECT IncidentAanvang, IncidentHardware_ID, TypeOmschrijving, LocatieOmschrijving, IncidentOmschrijving, IncidentCall_ID, CallStatus
+SELECT CallOpening, IncidentHardware_ID, inc.Incident_ID, TypeOmschrijving, LocatieOmschrijving, IncidentOmschrijving, IncidentCall_ID, CallStatus
 
 FROM im_incidentcalls cal, im_incidenten inc, cmdb_hardware har, cmdb_type typ, cmdb_locatie loc
 
@@ -23,23 +25,24 @@ $result = $mysqli->query($sql);
 if($result->num_rows>0)
 {
     echo '<table class="ci-table">';
-    echo '<th>IncidentAanvang</th><th>Hardware ID</th><th>Type</th><th>Locatie</th><th>Omschrijving</th>';
+    echo '<th>IncidentAanvang</th><th>Hardware ID</th><th>Type</th><th>Locatie</th><th>IncidentID</th><th>Omschrijving</th>';
     $i=0;
     while($row = $result->fetch_assoc())
     {
         echo '<tr class="ci-table-row ';
         if($i%2) echo 'even';
         else echo 'uneven';
-        echo '">';
-        echo '<td class="ci-table-cell">'.$row['IncidentAanvang'].'</td>';
+        echo '" onclick="location.href=\'?action=calloplossen&callid='.$row['IncidentCall_ID'].'\'">';
+        echo '<td class="ci-table-cell">'.$row['CallOpening'].'</td>';
         echo '<td class="ci-table-cell">'.$row['IncidentHardware_ID'].'</td>';
         echo '<td class="ci-table-cell">'.$row['TypeOmschrijving'].'</td>';
         echo '<td class="ci-table-cell">'.$row['LocatieOmschrijving'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['Incident_ID'].'</td>';
         echo '<td class="ci-table-cell">'.$row['IncidentOmschrijving'].'</td>';
-        echo '<td class="ci-table-cell">';
-        echo '<form id="'.$row['IncidentCall_ID'].'" action="#" method="POST">';
+        /*echo '<td class="ci-table-cell">';
+        echo '<form id="form-'.$row['IncidentCall_ID'].'" action="#" method="POST">';
         echo '<input name="IncidentCall_ID" type="hidden" value="'.$row['IncidentCall_ID'].'"/>';
-        echo '<select name="status" onchange="document.getElementById(\''.$row['IncidentCall_ID'].'\').submit();">';
+        echo '<select name="status" onchange="document.getElementById(\'form-'.$row['IncidentCall_ID'].'\').submit();">';
         echo '<option value="0"';
         if($row['CallStatus']=='0') echo ' selected="selected"';
         echo '>niet in behandeling</option>';
@@ -47,7 +50,7 @@ if($result->num_rows>0)
         if($row['CallStatus']=='1') echo ' selected="selected"';
         echo '>opgelost</option>';
         echo '</form>';
-        echo '</td>';
+        echo '</td>';*/
         echo '</tr>';
         $i++;
     }
