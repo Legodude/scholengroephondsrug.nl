@@ -12,6 +12,7 @@
         $result =  $mysqli->query($sql);
         echo "Gebruiker toegevoegd!";
         exit();
+    }
 ?>
 
 <form action="#" METHOD="POST">
@@ -41,5 +42,4 @@
         </tr>
     </table>
     <input type="submit" value="Aanmaken" />
-</form>
-    
+</form>    
