@@ -17,7 +17,7 @@ WHERE cal.incident_id = inc.incident_id
 AND inc.IncidentHardware_ID = har.hardware_ID
 AND har.HardwareType_ID = typ.Type_ID
 AND har.HardwareLocatie_ID = loc.Locatie_ID
-ORDER BY cal.CallStatus ASC
+AND cal.CallStatus = 0 
 ';
 
 $result = $mysqli->query($sql);

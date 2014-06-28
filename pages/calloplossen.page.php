@@ -1,7 +1,8 @@
 <?php
 if(!isset($_GET['callid']))  header("Location: ?action=calls");
 if(!isset($_POST['ID']) && !isset($_POST['sluiting']) && !isset($_POST['oplossing'])){
-$query="SELECT IncidentCall_ID, IncidentOmschrijving FROM im_incidentcalls a, im_incidenten b WHERE CallSluiting IS NULL and a.Incident_ID = b.Incident_ID";
+$query="SELECT IncidentCall_ID, IncidentOmschrijving FROM im_incidentcalls a, im_incidenten b WHERE a.Incident_ID = b.Incident_ID and "
+        . "IncidentCall_ID = \"".$_GET['callid'].'"';
 $result=$mysqli->query($query);
 if($result->num_rows==0) echo "geen calls!", exit();
 $row = $result->fetch_assoc();
@@ -16,6 +17,7 @@ $now = str_replace(' ', 'T', $now);
             <td>
                 <?php
                 echo $_GET['callid'];
+                echo '<input type="hidden" name="ID" value="'.$_GET['callid'].'" />';
                 ?>
                 <!--<select name='ID'>
                 <?php 
@@ -64,19 +66,16 @@ else{
     $oplossing = $_POST['oplossing'];
     $sluiting = str_replace("T", " ", $sluiting);
     
-    $query="UPDATE im_incidentcalls
-            INNER JOIN im_incidenten
-            ON im_incidentcalls.Incident_ID=im_incidenten.Incident_ID
-            SET CallSluiting='$sluiting', CallStatus=1, IncidentOplossing='$oplossing'
-            WHERE IncidentCall_ID=$ID
-            ";
-    $mysqli->query($query);
-    
-    $query="SELECT email, IncidentOmschrijving
+    $sql ='UPDATE im_incidentcalls
+            SET CallSluiting="'.$sluiting.'", CallStatus=1
+            WHERE IncidentCall_ID="'.$ID.'"';
+    echo $sql;
+    $mysqli->query($sql);
+    $query='SELECT email, IncidentOmschrijving
             FROM im_incidenten
             INNER JOIN im_incidentcalls
             ON im_incidentcalls.Incident_ID=im_incidenten.Incident_ID
-            WHERE IncidentCall_ID=$ID";
+            WHERE IncidentCall_ID="'.$ID.'"';
     $result=$mysqli->query($query);
     $row=$result->fetch_assoc();
     echo "Incident omschrijving: ".$row['IncidentOmschrijving']."<br />";
