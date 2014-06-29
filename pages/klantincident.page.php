@@ -52,7 +52,8 @@ else
                         ?>
                     </select>
                 </td></tr>
-            <tr><td>Gebruiker:</td><td><input name="gebruikercode" type="text" readonly="readonly" value="<?php echo $_SESSION['gebruikercode']; ?>" /></td></tr>
+            <tr><td>Gebruiker:</td><td><input name="gebruikercode" type="text" readonly="readonly" value="<?php  
+            if(isset($_SESSION['gebruikercode'])){echo $_SESSION['gebruikercode'];}else{echo 'ROOT';} ?>" /></td></tr>
         </table>
         <input type="submit" />
     </form>
