@@ -12,7 +12,7 @@
 if(isset($_POST['Hardware_ID']))
 {
     $sql = 'INSERT INTO `im_incidenten` 
-            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentWorkaround,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus)
+            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus,email)
             VALUES
             ("'.$_POST['Hardware_ID'].'",
             "'.$_POST['incidentAanvangdatum'].' '.$_POST['incidentAanvangtijd'].'",
@@ -20,9 +20,9 @@ if(isset($_POST['Hardware_ID']))
             "1",
             "1",
             "'.$_POST['gebruikercode'].'",
-            "1")';
+            "1",
+            "'.$_POST['email'].'")';
     $result =  $mysqli->query($sql);
-    echo $sql;
     echo "Incident aangemaakt!<br>";
     exit();
 }
@@ -52,8 +52,10 @@ else
                         ?>
                     </select>
                 </td></tr>
-            <tr><td>Gebruiker:</td><td><input name="gebruikercode" type="text" readonly="readonly" value="<?php echo $_SESSION['gebruikercode']; ?>" /></td></tr>
+            <tr><td>E-mailadres:</td><td><input type="email" name="email" /></td></tr>
         </table>
+        <input name="gebruikercode" type="hidden" value="<?php  
+            if(isset($_SESSION['gebruikercode'])){echo $_SESSION['gebruikercode'];}else{echo 'ROOT';} ?>" />
         <input type="submit" />
     </form>
     <?php

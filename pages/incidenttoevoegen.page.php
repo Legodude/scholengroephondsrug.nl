@@ -12,7 +12,7 @@
 if(isset($_POST['Hardware_ID']))
 {
     $sql = 'INSERT INTO `im_incidenten` 
-            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentWorkaround,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus)
+            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentWorkaround,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus,email)
             VALUES
             ("'.$_POST['Hardware_ID'].'",
             "'.$_POST['incidentAanvangdatum'].' '.$_POST['incidentAanvangtijd'].'",
@@ -21,7 +21,8 @@ if(isset($_POST['Hardware_ID']))
             "'.$_POST['incidentImpact'].'",
             "'.$_POST['incidentUrgentie'].'",
             "'.$_POST['gebruikercode'].'",
-            "'.$_POST['incidentStatus'].'")';
+            "'.$_POST['incidentStatus'].'",
+            "'.$_POST['melder'].'")';
     $result =  $mysqli->query($sql);
     echo "Incident aangemaakt!<br>";
     exit();
@@ -70,6 +71,14 @@ else
                 <option value="2">In behandeling</option>
                 <option value="3">Gesloten</option>
         </select></td></tr>
+            <tr>
+                <td>
+                    Melder:
+                </td>
+                <td>
+                    <input type="email" name="melder" />
+                </td>
+            </tr>
         </table>
         <input type="submit" />
     </form>
