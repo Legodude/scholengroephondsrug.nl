@@ -11,10 +11,12 @@ if(!isset($_GET['Incident_ID']))
         if($i%2) echo 'even';
         else echo 'uneven';
         echo '" onclick="location.href=\'?action=callmaken&Incident_ID='.$row['Incident_ID'].'\'">';
-            foreach($row as $value)
-            {
-                echo '<td class="ci-table-cell">'.$value.'</td>';
-            }
+        echo '<td class="ci-table-cell">'.$row['Incident_ID'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['IncidentHardware_ID'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['IncidentAanvang'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['IncidentOmschrijving'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['IncidentWorkaround'].'</td>';
+        echo '<td class="ci-table-cell">'.$row['gebruikercode'].'</td>';
         echo '</tr>';
         $i++;
     }
@@ -31,25 +33,25 @@ else
 
     <form method="post" action="#">
         <table>
-
-            <tr><td>starttijd:</td><td>
-        <input type="datetime-local" name="Opening" value="<?php echo $now;?>">
+            <tr>
+                <td>Incident:</td><td>
+            <?php
+            echo $_GET['Incident_ID'];
+            echo '<input type="hidden" name="incident" value="'.$_GET['Incident_ID'].'" />';
+            ?>
                 </td>
             </tr>
             <tr>
-                <td>Incident:</td><td>
-        <select name="incident" style="width: 235px;">
+                <td>Omschrijving:</td><td>
             <?php
-            $query="SELECT Incident_ID, Incidentomschrijving FROM im_incidenten WHERE im_incidenten.incidentOplossing IS NULL";
-            $result=$mysqli->query($query);
-            While($row=$result->fetch_assoc()){
-                echo '<option value="'.$row['Incident_ID'].'">';
-                echo $row['Incident_ID'].': '.$row['Incidentomschrijving'];
-                echo '</option>';
-            }
-
+            $sql = 'SELECT * from `im_incidenten` where `Incident_ID` = "'.$_GET['Incident_ID'].'"';
+            $result = $mysqli->query($sql);
+            echo $result->fetch_assoc()['IncidentOmschrijving'];
             ?>
-        </select>
+                </td>
+            </tr>
+            <tr><td>starttijd:</td><td>
+        <input type="datetime-local" name="Opening" value="<?php echo $now; ?>" />
                 </td>
             </tr>
         </table>
