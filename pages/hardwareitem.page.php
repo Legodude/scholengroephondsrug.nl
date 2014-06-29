@@ -21,24 +21,53 @@ if(isset($_POST['Hardware_ID']))
     
     $sql = 'UPDATE `cmdb_hardware` SET `HardwareOS_ID` = '.$_POST['HardwareOS_ID'].' WHERE `Hardware_ID` = "'.$hardwareid.'"';
     $mysqli->query($sql);
-    
-    foreach($_POST['Software_ID'] as $key=>$value)
+    if(isset($_POST['Software_ID']))
     {
-        $sql = "";
-        if(empty($value))
+        foreach($_POST['Software_ID'] as $key=>$value)
         {
-            $sql .= 'DELETE FROM `cmdb_geinstalleerdesoftware` WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
+            $sql = "";
+            if(empty($value))
+            {
+                $sql .= 'DELETE FROM `cmdb_geinstalleerdesoftware` WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
+            }
+            else 
+            {
+                $sql .= 'UPDATE `cmdb_geinstalleerdesoftware` SET `Software_ID` = "'.$value.'" WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
+            }
+            $mysqli->query($sql);
         }
-        else 
-        {
-            $sql .= 'UPDATE `cmdb_geinstalleerdesoftware` SET `Software_ID` = "'.$value.'" WHERE `GeinstalleerdeSoftware_ID` = "'.$key.'"';
-        }
-        $mysqli->query($sql);
     }
-    if(!empty($_POST['SoftwareNieuw']))
+    if(isset($_POST['SoftwareNieuw']))
     {
-        $sql = 'INSERT INTO `cmdb_geinstalleerdesoftware` (`Software_ID`,`Hardware_ID`) VALUES ("'.$_POST['SoftwareNieuw'].'","'.$_POST['Hardware_ID'].'")';
-        $mysqli->query($sql);
+        if(!empty($_POST['SoftwareNieuw']))
+        {
+            $sql = 'INSERT INTO `cmdb_geinstalleerdesoftware` (`Software_ID`,`Hardware_ID`) VALUES ("'.$_POST['SoftwareNieuw'].'","'.$_POST['Hardware_ID'].'")';
+            $mysqli->query($sql);
+        }
+    }
+    if(isset($_POST['Hardwarelink']))
+    {
+        foreach($_POST['Hardwarelink'] as $key=>$value)
+        {
+            $sql = "";
+            if(empty($value))
+            {
+                $sql .= 'DELETE FROM `cmdb_hardwarelink` WHERE `Link_ID` = "'.$key.'"';
+            }
+            else 
+            {
+                $sql .= 'UPDATE `cmdb_hardwarelink` SET `Hardware_ID_sub` = "'.$value.'" WHERE `Link_ID` = "'.$key.'"';
+            }
+            $mysqli->query($sql);
+        }
+    }
+    if(isset($_POST['Hardwarelinknieuw']))
+    {
+        if(!empty($_POST['Hardwarelinknieuw']))
+        {
+            $sql = 'INSERT INTO `cmdb_hardwarelink` (`Hardware_ID_hoofd`,`Hardware_ID_sub`) VALUES ("'.$_POST['Hardware_ID'].'","'.$_POST['Hardwarelinknieuw'].'")';
+            $mysqli->query($sql);
+        }
     }
 }
 
@@ -158,6 +187,40 @@ if($result->num_rows==1)
                     }
                 }
                 generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "SoftwareNieuw", "Geen", "", "cmdb_geinstalleerdesoftware", "Software_ID",200);
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Verbindingen:
+        </td>
+        <td>
+            <?php
+                $sql = 'SELECT 
+                        * 
+                        FROM 
+                        `cmdb_hardwarelink` 
+                        INNER JOIN `cmdb_hardware` 
+                        ON `cmdb_hardwarelink`.`Hardware_ID_sub` = `cmdb_hardware`.`Hardware_ID`
+                        WHERE 
+                        `Hardware_ID_hoofd` = "'.$hardwareid.'"';
+                $result=$mysqli->query($sql);
+                if($result->num_rows)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        
+                        $otherHardwareItem = $row['Hardware_ID_sub'];
+                        generateDropdownFromTable("", "cmdb_hardware", "Hardware_ID", "Hardware_ID", "Hardwarelink[".$row['Link_ID']."]", "(verwijderen)", $otherHardwareItem,"","",200);
+                        //generateDropdownFromTable("", "cmdb_hardware", "Hardware_ID", "Hardware_ID", "Hardware_ID[".$row['Hardware_ID']."]", "(verwijderen)", $row["Hardware_ID"], "cmdb_hardwarelink", "Hardware_ID",200);
+                        /*echo $row["SoftwareNaam"];*/
+                        echo '<br />';
+                        
+                    }
+                }
+                //generateDropdownFromTable("", "cmdb_software", "Software_ID", "SoftwareNaam", "SoftwareNieuw", "Geen", "", "cmdb_geinstalleerdesoftware", "Software_ID",200);
+                //generateDropdownFromTable("", "cmdb_hardware", "Hardware_ID", "Hardware_ID", "Hardware_ID[".$row['Hardware_ID']."]", "(verwijderen)", "", "cmdb_hardwarelink", "Hardware_ID",200);
+                generateDropdownFromTable("", "cmdb_hardware", "Hardware_ID", "Hardware_ID", "Hardwarelinknieuw", "Geen", "","","",200);
             ?>
         </td>
     </tr>

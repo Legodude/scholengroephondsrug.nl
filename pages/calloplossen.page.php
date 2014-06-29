@@ -69,7 +69,6 @@ else{
     $sql ='UPDATE im_incidentcalls
             SET CallSluiting="'.$sluiting.'", CallStatus=1
             WHERE IncidentCall_ID="'.$ID.'"';
-    echo $sql;
     $mysqli->query($sql);
     $query='SELECT email, IncidentOmschrijving
             FROM im_incidenten
