@@ -1,19 +1,19 @@
 <div class="filteroptions">
-    <form action="#" method="GET" id="filteroptionsform">
+    <form action="#" method="POST" id="filteroptionsform">
         <input type="hidden" name="action" value="hardware" />
         <?php
         $type = "";
-        if(isset($_GET["type"])) $type = $_GET["type"];
+        if(isset($_POST["type"])) $type = $_POST["type"];
         generateDropdownFromTable("filteroptionsform", "cmdb_type", "Type_ID", "TypeOmschrijving", "type", "", $type, "cmdb_hardware","hardwareType_ID");
         $locatie = "";
-        if(isset($_GET["locatie"])) $locatie = $_GET["locatie"];
+        if(isset($_POST["locatie"])) $locatie = $_POST["locatie"];
         generateDropdownFromTable("filteroptionsform","cmdb_locatie", "Locatie_ID", "LocatieOmschrijving", "locatie", "", $locatie);
         $ontwikkelaar = "";
-        if(isset($_GET["ontwikkelaar"])) $ontwikkelaar = $_GET["ontwikkelaar"];
+        if(isset($_POST["ontwikkelaar"])) $ontwikkelaar = $_POST["ontwikkelaar"];
         generateDropdownFromTable("filteroptionsform","cmdb_ontwikkelaar", "Ontwikkelaar_ID", "OntwikkelaarNaam", "ontwikkelaar", "", $ontwikkelaar, "cmdb_hardware","hardwareOntwikkelaar_ID");
         
         $skip = 0;
-        if(isset($_GET["skip"])) $skip=$mysqli->real_escape_string(strip_tags($_GET["skip"]));
+        if(isset($_POST["skip"])) $skip=$mysqli->real_escape_string(strip_tags($_POST["skip"]));
         $sql = 'SELECT 
 	`cmdb_hardware`.`Hardware_ID`,
 	`cmdb_type`.`TypeOmschrijving`,
@@ -35,25 +35,25 @@
 	LEFT JOIN `cmdb_leverancier`
 	ON `cmdb_hardware`.`HardwareLeverancier_ID`=`cmdb_leverancier`.`leverancier_ID`
         WHERE 1 ';
-        if(isset($_GET["type"]))
+        if(isset($_POST["type"]))
         {
-            if (!empty($_GET["type"]))
+            if (!empty($_POST["type"]))
             {
-                $sql.='AND `HardwareType_ID` = "' . $mysqli->real_escape_string(strip_tags($_GET["type"])) . '"';
+                $sql.='AND `HardwareType_ID` = "' . $mysqli->real_escape_string(strip_tags($_POST["type"])) . '"';
             }
         }
-        if(isset($_GET["locatie"]))
+        if(isset($_POST["locatie"]))
         {
-            if (!empty($_GET["locatie"]))
+            if (!empty($_POST["locatie"]))
             {
-                $sql.='AND `HardwareLocatie_ID` = "' . $mysqli->real_escape_string(strip_tags($_GET["locatie"])) . '"';
+                $sql.='AND `HardwareLocatie_ID` = "' . $mysqli->real_escape_string(strip_tags($_POST["locatie"])) . '"';
             }
         }
-        if(isset($_GET["ontwikkelaar"]))
+        if(isset($_POST["ontwikkelaar"]))
         {
-            if (!empty($_GET["ontwikkelaar"]))
+            if (!empty($_POST["ontwikkelaar"]))
             {
-                $sql.='AND `HardwareOntwikkelaar_ID` = "' . $mysqli->real_escape_string(strip_tags($_GET["ontwikkelaar"])) . '"';
+                $sql.='AND `HardwareOntwikkelaar_ID` = "' . $mysqli->real_escape_string(strip_tags($_POST["ontwikkelaar"])) . '"';
             }
         }
         $sql.= ' AND `HardwareStatus` IS NULL ';
@@ -96,7 +96,7 @@
 </div>
 
 <?php
-if(isset($_GET["skip"]))
+if(isset($_POST["skip"]))
 {
     $sql.= ' LIMIT '.$skip .',20';
 }
