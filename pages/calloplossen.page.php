@@ -69,7 +69,7 @@ else{
     $sql ='UPDATE im_incidentcalls
             SET CallSluiting="'.$sluiting.'", CallStatus=1
             WHERE IncidentCall_ID="'.$ID.'"';
-    echo $sql;
+    
     $mysqli->query($sql);
     $query='SELECT email, IncidentOmschrijving
             FROM im_incidenten
@@ -79,7 +79,11 @@ else{
     $result=$mysqli->query($query);
     $row=$result->fetch_assoc();
     echo "Incident omschrijving: ".$row['IncidentOmschrijving']."<br />";
-    echo "Incidentmelder: ".$row['email']."<br />";
+    if($row['email']!=NULL){
+    echo "Incidentmelder: ".$row['email']."<br />";}
+    else{
+        echo "Incidentmelder: niet geregistreerd. <br />";
+    }
     echo "Call gesloten! <br />";
 }
 ?>
