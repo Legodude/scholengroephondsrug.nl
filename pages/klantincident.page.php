@@ -23,7 +23,6 @@ if(isset($_POST['Hardware_ID']))
             "1",
             "'.$_POST['email'].'")';
     $result =  $mysqli->query($sql);
-    echo $sql;
     echo "Incident aangemaakt!<br>";
     exit();
 }
