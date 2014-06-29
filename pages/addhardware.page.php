@@ -38,7 +38,6 @@
                 . '"'.$_POST['HardwareLocatie_ID'].'",'.$os.','
                 . '"'.$_POST['HardwareOntwikkelaar_ID'].'","'.$_POST['HardwareLeverancier_ID'].'",'
                 . '"'.$_POST['HardwareAankoopJaar'].'")';
-        echo $sql;
         $mysqli->query($sql);
         echo "Hardwareitem toegevoegd.<br />";
         echo '<a href="?action=hardwareitem&hardwareID='.$new_ID.'">Klik hier</a> om software toe te voegen, en de netwerkverbindingen in te stellen.';
