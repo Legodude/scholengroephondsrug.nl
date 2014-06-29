@@ -12,7 +12,7 @@
 if(isset($_POST['Hardware_ID']))
 {
     $sql = 'INSERT INTO `im_incidenten` 
-            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentWorkaround,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus)
+            (IncidentHardware_ID,IncidentAanvang,IncidentOmschrijving,IncidentImpact,IncidentUrgentie,gebruikercode,IncidentStatus)
             VALUES
             ("'.$_POST['Hardware_ID'].'",
             "'.$_POST['incidentAanvangdatum'].' '.$_POST['incidentAanvangtijd'].'",
