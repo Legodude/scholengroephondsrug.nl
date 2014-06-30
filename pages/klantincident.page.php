@@ -56,7 +56,7 @@ else
         </table>
         <input name="gebruikercode" type="hidden" value="<?php  
             if(isset($_SESSION['gebruikercode'])){echo $_SESSION['gebruikercode'];}else{echo 'ROOT';} ?>" />
-        <input type="submit" />
+        <input type="submit" value="Versturen" />
     </form>
     <?php
 }

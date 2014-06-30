@@ -161,11 +161,11 @@ if($result->num_rows==1)
             ?>
         </td>
     </tr>
-    <tr>
-        <td>
+    <tr class="hardwareitemtable-row">
+        <td class="hardwareitemtable-cell">
             Geïnstalleerde software:
         </td>
-        <td>
+        <td class="hardwareitemtable-cell">
             <?php
                 $sql = 'SELECT 
                         * 
@@ -190,7 +190,7 @@ if($result->num_rows==1)
             ?>
         </td>
     </tr>
-    <tr>
+    <tr class="hardwareitemtable-row">
         <td>
             Verbindingen:
         </td>

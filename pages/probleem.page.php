@@ -46,6 +46,10 @@ else
                             echo '<td>'.$row['IncidentHardware_ID'].'</td>';
                         echo '<tr>';
                         echo '<tr>';
+                            echo '<td>Aanvang:</td>';
+                            echo '<td>'.$row['IncidentAanvang'].'</td>';
+                        echo '<tr>';
+                        echo '<tr>';
                             echo '<td>Omschrijving</td>';
                             echo '<td>'.$row['IncidentOmschrijving'].'</td>';
                         echo '<tr>';

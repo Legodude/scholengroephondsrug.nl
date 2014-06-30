@@ -183,9 +183,10 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .hardwareitemtable-row{
-    
+    vertical-align: top;
 }
 
 .hardwareitemtable-cell{
+    vertical-align: top;
     width:50%;
 }
